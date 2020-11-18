@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.demo.mapper.IdentificationRecordMapper">
+
+    <insert id="insertIdentificationRecord" useGeneratedKeys="true" keyProperty="id" parameterType="identification">
+        INSERT INTO identification(okPic,curState,`date`,cabinetId,`row`,`column`) VALUES (#{okPic,jdbcType=VARCHAR},#{curState,jdbcType=VARCHAR},#{date,jdbcType=DATE},#{cabinetId,jdbcType=INTEGER},#{row,jdbcType=INTEGER},#{column,jdbcType=INTEGER})
+    </insert>
+
+    <select id="getIdentificationRecord" parameterType="long" resultType="identification">
+        SELECT id,okPic,curState,date,cabinetId,row,column FROM identification WHERE id = #{id}
+    </select>
+
+</mapper>

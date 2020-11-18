@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.demo.mapper.AllRecordRowMapper">
+    <select id="searchAllRecords" parameterType="int" resultType="com.ssm.demo.model.ResultExcelRow">
+        select baseName as baseStation,b.cabinetId,cabinetName,switchId,switchName,curState as resultState,okPic,`date` as `time`,b.standardState as standardState
+        from
+        (select  baseName, A.cabinetId as cabinetId , cabinetName,Switch.id as switchId, Switch.name as switchName, `row`,`column`,standardState
+        FROM
+        (SELECT BaseStation.name as `baseName`, Cabinet.id as CabinetId, Cabinet.name as cabinetName
+        from BaseStation join Cabinet on Cabinet.baseId = BaseStation.id where BaseStation.id=#{baseId}) AS A
+        join Switch on A.cabinetId = Switch.cabinetId) as b
+        join Identification as ident on  b.cabinetId =ident.cabinetId and b.row=ident.row and b.column=ident.column
+    </select>
+
+    <select id="searchAllMistake" parameterType="int" resultType="com.ssm.demo.model.ResultExcelRow">
+        select baseName as baseStation,b.cabinetId,cabinetName,switchId,switchName,curState as resultState,okPic,`date` as `time`,b.standardState as standardState
+        from
+        (select  baseName, A.cabinetId as cabinetId , cabinetName,Switch.id as switchId, Switch.name as switchName, `row`,`column`,standardState
+        FROM
+        (SELECT BaseStation.name as `baseName`, Cabinet.id as cabinetId, Cabinet.name as cabinetName
+        from BaseStation join Cabinet on Cabinet.baseId = BaseStation.id where BaseStation.id=#{baseId}) AS A
+        join Switch on A.cabinetId = Switch.cabinetId) as b
+        join Identification as ident on  b.cabinetId =ident.cabinetId and b.row=ident.row and b.column=ident.column and not b.standardState = ident.curState
+    </select>
+
+</mapper>

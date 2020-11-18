@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.demo.mapper.SwitchMapper">
+    <select id="searchSwitches_cabinetId" parameterType="long" resultType="switch">
+        SELECT name,note,standardState,cabinetId,row,column
+        FROM Switch WHERE cabinetId = #{cabinetId}
+    </select>
+    <insert id="insertSwitch" parameterType="switch">
+        INSERT INTO Switch(name,note,standardState,cabinetId,row,column)
+        VALUES (#{name},#{note},#{standardState},#{cabinetId},#{row},#{column})
+    </insert>
+</mapper>

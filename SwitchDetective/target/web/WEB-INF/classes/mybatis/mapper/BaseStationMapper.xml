@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.demo.mapper.BaseStationMapper">
+
+    <select id="getStationById" parameterType="int" resultType="baseStation">
+        SELECT *
+        FROM BaseStation
+        WHERE id = #{id}
+    </select>
+
+    <select id="getStationByCabinetID" parameterType="String" resultType="baseStation">
+        SELECT `id`, `name`, `note`
+        FROM (SELECT baseId FROM Cabinet WHERE id = #{cabinetId}) AS CA
+        INNER JOIN BaseStation ON BaseStation.id = CA.baseId
+    </select>
+
+</mapper>

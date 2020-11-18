@@ -1,0 +1,15 @@
+集成开发环境工具
+idea
+pycharm
+
+
+运行环境
+windows10
+python3
+keras 2.2.4
+tensorboard 1.14.0
+tensorflow 1.14.0
+tensorflow-base 1.14.0
+tensorflow-estimator 1.14.0
+
+java1.8
