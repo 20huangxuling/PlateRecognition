@@ -1,6 +1,7 @@
 from flask import Flask
 import identification as I
-import yolo as y
+from PythonMicroservices.k
+
 
 app = Flask(__name__)
 #yol = y.YOLO()

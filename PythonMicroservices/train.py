@@ -6,22 +6,26 @@ import keras.backend as K
 from keras.layers import Input, Lambda
 from keras.models import Model
 from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping
-
-from PythonMicroservices.yolo3.model import preprocess_true_boxes, yolo_body, tiny_yolo_body, yolo_loss
+from yolo3.model import preprocess_true_boxes, yolo_body, tiny_yolo_body, yolo_loss
 from yolo3.utils import get_random_data
+import os
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 
 def _main():
     ################################网上看到，添加部分代码
     import tensorflow as tf
     import os
     os.environ["CUDA_VISIBLE_DEVICES"] = '0'  # 指定第一块GPU可用
-    config = tf.ConfigProto()
+    config = tf.compat.v1.ConfigProto()
     config.gpu_options.per_process_gpu_memory_fraction = 0.99  # 程序最多只能占用指定gpu50%的显存
     config.gpu_options.allow_growth = True  # 程序按需申请内存
-    sess = tf.Session(config=config)
+    sess = tf.compat.v1.Session(config=config)
     ######################################################
     annotation_path = '2007_train.txt'
-    log_dir = 'logs/000/'
+    log_dir = '/logs/000/'
+    # log_dir = 'logs/000/'
     classes_path = 'model_data/voc_classes.txt'
     anchors_path = 'model_data/yolo_anchors.txt'
     class_names = get_classes(classes_path)
